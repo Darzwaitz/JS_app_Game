@@ -30,8 +30,28 @@ let model = {
 		],
 
 	fire : function(guess) {
-		for (let i=0, i<this.numShips; i++){
-			let ship = this.sgips[i];
+		for (let i=0; i < this.numShips; i++){
+			let ship = this.ships[i];
+			// let locations = ship.locations;
+			let index = ship.locations.indexOf(guess); //if guess is in the locations array itz a hit
+			if (index >= 0) {
+				ship.hits[index] = "hit"; //mark index of hits array as a hit
+				if (this.isSunk(ship)) {
+					this.shipsSunk++;
+				}
+				return true; // return true for a hit
+			}
 		}
+		return false;// Otherwize return a false/'miss'
+	},
+
+	//take ship and check every possible location for a hit
+	isSunk : function(ship)	{
+		for (let i = 0; i < this.shipLength; i++) {
+			if (ship.hits[i] !== "hit") {
+				return false; //if therez a location that doeszn't have a hit - ship iz still floating
+			}
+		}
+		return true;
 	}
 };
