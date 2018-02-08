@@ -6,6 +6,7 @@
     margin: auto;
     background: url(images/board.jpg) no-repeat center;
     background-size: contain;
+    font-size: 12px;
 }
 
 
@@ -14,6 +15,9 @@
 	top: 2px;
 	left: 6px;
 	color: rgb(83, 175, 19);
+	font-family: Tahoma, Arial, Helvetica, sans-serif;
+	font-weight: bold;
+    font-size: 30px;
 }
 
 table {
@@ -32,14 +36,32 @@ form {
 	position: absolute;
 	bottom: 0;
 	right: 0;
-	padding: 15px;
+	padding: 5px;
 	background-color: rgb(83, 175, 19);
 }
 
 form input {
 	background-color: rgba(152, 207, 113);
 	border-color: rgb(83, 175, 19);
-	font-size: 1em;
+	font-size: 2em;
+	color: rgb(83, 175, 19);
+	font-weight: bold;
+}
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: rgb(83, 175, 19);
+  font-weight: bold;
+}
+::-moz-placeholder { /* Firefox 19+ */
+  color: rgb(83, 175, 19);
+  font-weight: bold;
+}
+:-ms-input-placeholder { /* IE 10+ */
+  color: rgb(83, 175, 19);
+  font-weight: bold;
+}
+:-moz-placeholder { /* Firefox 18- */
+  color: rgb(83, 175, 19);
+  font-weight: bold;
 }
 
 /*--functionality styles--*/

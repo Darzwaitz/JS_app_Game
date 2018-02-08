@@ -74,18 +74,26 @@ let model = {
 let controller = {
 	guesses : 0,
 	processGuess : function(guess) {
-
+		let location = parseGuess(guess);
+		if (location) {
+			this.guesses++;
+			let hit = model.fire(location);
+			if (hit && model.shipsSunk === model.numShips) {
+				view.displayMessage('You sank all of my battleships, in '+ this.guesses +' guesses');
+			}
+		}
 	}
-};
+}
+;
 //check validty of guess - length and type of input
 function parseGuess(guess) {
-	const alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
+	let alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
 
 	if (guess === null || guess.length !== 2) {
 		alert('Oopz, Please enter a letter and a number');
 	} else {
-		firstChar = guess.charAt(0);
-		let row = alphabet.indexOf(firstChar);
+		let firstChar = guess.charAt(0);
+		let row = alphabet.indexOf(firstChar); // change inputted letter to number
 		let column = guess.charAt(1); //grab 2nd char in string representing the column
 
 		if (isNaN(row) || isNaN(column)) { //check if row or column is NAN
@@ -104,3 +112,40 @@ function parseGuess(guess) {
 // console.log(parseGuess("G3"));
 // console.log(parseGuess("H0"));
 // console.log(parseGuess("A7"));
+
+// controller.processGuess("A0");
+// controller.processGuess("A6");
+// controller.processGuess("B6");
+// controller.processGuess("C6");
+// controller.processGuess("C4");
+// controller.processGuess("D4");
+// controller.processGuess("E4");
+// controller.processGuess("B0");
+// controller.processGuess("B1");
+// controller.processGuess("B2");
+window.onload = init;
+
+function init() {
+	let fireButton = document.getElementById('fireButton');
+	fireButton.onclick = handleFireButton;
+	let guessInput = document.getElementById('guessInput');
+	guessInput.onkeypress = handleKeyPress; // handler for press event of HTML input field
+
+}
+
+function handleKeyPress(e) {
+	let fireButton = document.getElementById('fireButton');
+	if (e.keyCode === 13) { // sets keycode property to 13 when RETURN is pressed on keyboard
+		fireButton.click(); // and invokes fireButton click method
+		return false;//return false to avoid form taking any further action
+	}
+}
+
+function handleFireButton() {
+	let guessInput = document.getElementById('guessInput');
+	let guess = guessInput.value;
+	controller.processGuess(guess);
+
+	guessInput.value = '';
+}
+
